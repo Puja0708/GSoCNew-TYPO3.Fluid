@@ -35,7 +35,7 @@ namespace TYPO3\Fluid\ViewHelpers\Uri;
  *
  * @api
  */
-class ActionViewHelper extends \TYPO3\Base\Uri\ActionViewHelper {
+class ActionViewHelper extends \TYPO3\Base\ViewHelpers\Uri\ActionViewHelper {
 
 	
 }
