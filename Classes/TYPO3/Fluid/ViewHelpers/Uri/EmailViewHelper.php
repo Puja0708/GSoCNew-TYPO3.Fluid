@@ -30,7 +30,6 @@ namespace TYPO3\Fluid\ViewHelpers\Uri;
 class EmailViewHelper extends \TYPO3\Base\ViewHelpers\Uri\EmailViewHelper {
 
 		}
-}
 
 
 ?>
