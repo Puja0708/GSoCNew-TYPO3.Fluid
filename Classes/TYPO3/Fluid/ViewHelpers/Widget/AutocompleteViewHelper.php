@@ -26,7 +26,7 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * @api
  */
-class AutocompleteViewHelper extends \TYPO3\Fluid\ViewHelpers\Widget\AutocompleteViewHelper {
+class AutocompleteViewHelper extends \TYPO3\Base\ViewHelpers\Widget\AutocompleteViewHelper {
 
 	
 }
