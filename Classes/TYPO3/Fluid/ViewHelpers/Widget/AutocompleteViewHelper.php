@@ -28,6 +28,10 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class AutocompleteViewHelper extends \TYPO3\Base\ViewHelpers\Widget\AutocompleteViewHelper {
 
-	
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Fluid\ViewHelpers\Widget\Controller\AutocompleteController
+	 */
+	protected $controller;
 }
 ?>
