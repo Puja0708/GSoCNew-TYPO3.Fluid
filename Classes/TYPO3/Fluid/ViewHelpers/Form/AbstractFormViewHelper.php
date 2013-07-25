@@ -34,30 +34,7 @@ abstract class AbstractFormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\Abstr
 		$this->persistenceManager = $persistenceManager;
 	}
 
-	/**
-	 * Prefixes / namespaces the given name with the form field prefix
-	 *
-	 * @param string $fieldName field name to be prefixed
-	 * @return string namespaced field name
-	 */
-	protected function prefixFieldName($fieldName) {
-		if ($fieldName === NULL || $fieldName === '') {
-			return '';
-		}
-		if (!$this->viewHelperVariableContainer->exists('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'fieldNamePrefix')) {
-			return $fieldName;
-		}
-		$fieldNamePrefix = (string)$this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'fieldNamePrefix');
-		if ($fieldNamePrefix === '') {
-			return $fieldName;
-		}
-		$fieldNameSegments = explode('[', $fieldName, 2);
-		$fieldName = $fieldNamePrefix . '[' . $fieldNameSegments[0] . ']';
-		if (count($fieldNameSegments) > 1) {
-			$fieldName .= '[' . $fieldNameSegments[1];
-		}
-		return $fieldName;
-	}
+	
 
 	/**
 	 * Renders a hidden form field containing the technical identity of the given object.
@@ -81,21 +58,7 @@ abstract class AbstractFormViewHelper extends \TYPO3\Fluid\Core\ViewHelper\Abstr
 		return chr(10) . '<input type="hidden" name="'. $name . '" value="' . $identifier .'" />' . chr(10);
 	}
 
-	/**
-	 * Register a field name for inclusion in the HMAC / Form Token generation
-	 *
-	 * @param string $fieldName name of the field to register
-	 * @return void
-	 */
-	protected function registerFieldNameForFormTokenGeneration($fieldName) {
-		if ($this->viewHelperVariableContainer->exists('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formFieldNames')) {
-			$formFieldNames = $this->viewHelperVariableContainer->get('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formFieldNames');
-		} else {
-			$formFieldNames = array();
-		}
-		$formFieldNames[] = $fieldName;
-		$this->viewHelperVariableContainer->addOrUpdate('TYPO3\Fluid\ViewHelpers\FormViewHelper', 'formFieldNames', $formFieldNames);
-	}
+	
 }
 
 ?>
