@@ -45,60 +45,6 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  */
 class RadioViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper {
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'input';
-
-	/**
-	 * Initialize the arguments.
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
-		$this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this view helper', FALSE, 'f3-form-error');
-		$this->overrideArgument('value', 'string', 'Value of input tag. Required for radio buttons', TRUE);
-		$this->registerUniversalTagAttributes();
 	}
-
-	/**
-	 * Renders the checkbox.
-	 *
-	 * @param boolean $checked Specifies that the input element should be preselected
-	 *
-	 * @return string
-	 * @api
-	 */
-	public function render($checked = NULL) {
-		$this->tag->addAttribute('type', 'radio');
-
-		$nameAttribute = $this->getName();
-		$valueAttribute = $this->getValue();
-		if ($checked === NULL && $this->isObjectAccessorMode()) {
-			if ($this->hasMappingErrorOccured()) {
-				$propertyValue = $this->getLastSubmittedFormData();
-			} else {
-				$propertyValue = $this->getPropertyValue();
-			}
-
-				// no type-safe comparison by intention
-			$checked = $propertyValue == $valueAttribute;
-		}
-
-		$this->registerFieldNameForFormTokenGeneration($nameAttribute);
-		$this->tag->addAttribute('name', $nameAttribute);
-		$this->tag->addAttribute('value', $valueAttribute);
-		if ($checked) {
-			$this->tag->addAttribute('checked', 'checked');
-		}
-
-		$this->setErrorClassAttribute();
-
-		return $this->tag->render();
-	}
-}
 
 ?>
