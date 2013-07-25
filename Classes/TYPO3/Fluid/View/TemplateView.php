@@ -16,7 +16,7 @@ namespace TYPO3\Fluid\View;
  *
  * @api
  */
-class TemplateView extends \TYPO3\Base\View\Templateview {
+abstract class TemplateView extends \TYPO3\Base\View\TemplateView implements \TYPO3\Flow\Mvc\View\ViewInterface{
 
 
 
@@ -175,6 +175,40 @@ class TemplateView extends \TYPO3\Base\View\Templateview {
 		$templateModifiedTimestamp = filemtime($pathAndFilename);
 		$templateIdentifier = sprintf('%s_%s_%s_%s', $packageKey, $controllerName, $prefix, sha1($pathAndFilename . '|' . $templateModifiedTimestamp));
 		return $templateIdentifier;
+	}
+
+	/**
+	 * Add a variable to the view data collection.
+	 * Can be chained, so $this->view->assign(..., ...)->assign(..., ...); is possible
+	 *
+	 * @param string $key Key of variable
+	 * @param mixed $value Value of object
+	 * @return \TYPO3\Flow\Mvc\View\ViewInterface an instance of $this, to enable chaining
+	 * @api
+	 */
+	public function assign($key, $value){
+			;
+	}
+
+	/**
+	 * Add multiple variables to the view data collection
+	 *
+	 * @param array $values array in the format array(key1 => value1, key2 => value2)
+	 * @return \TYPO3\Flow\Mvc\View\ViewInterface an instance of $this, to enable chaining
+	 * @api
+	 */
+	public function assignMultiple(array $values){
+		;
+	}
+
+	/**
+	 * Renders the view
+	 *
+	 * @return string The rendered view
+	 * @api
+	 */
+	public function render() {
+		;
 	}
 }
 
