@@ -43,7 +43,7 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  *
  * @api
  */
-class RadioViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper {
+class RadioViewHelper extends \TYPO3\Base\ViewHelpers\Form\RadioViewHelper {
 
 	}
 
