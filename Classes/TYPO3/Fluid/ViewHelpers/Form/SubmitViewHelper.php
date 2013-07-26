@@ -33,41 +33,9 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  *
  * @api
  */
-class SubmitViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper {
+class SubmitViewHelper extends \TYPO3\Base\ViewHelpers\Form\SubmitViewHelper {
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'input';
 
-	/**
-	 * Initialize the arguments.
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
-		$this->registerUniversalTagAttributes();
-	}
-
-	/**
-	 * Renders the submit button.
-	 *
-	 * @return string
-	 * @api
-	 */
-	public function render() {
-		$name = $this->getName();
-		$this->registerFieldNameForFormTokenGeneration($name);
-
-		$this->tag->addAttribute('type', 'submit');
-		$this->tag->addAttribute('name', $name);
-		$this->tag->addAttribute('value', $this->getValue());
-
-		return $this->tag->render();
-	}
 }
 
 ?>
