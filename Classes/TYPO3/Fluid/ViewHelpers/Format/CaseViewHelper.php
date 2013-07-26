@@ -11,7 +11,7 @@ namespace TYPO3\Fluid\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Fluid\Core\ViewHelper\Exception\InvalidVariableException;
+
 
 /**
  * Modifies the case of an input string to upper- or lowercase or capitalization.
@@ -64,73 +64,8 @@ use TYPO3\Fluid\Core\ViewHelper\Exception\InvalidVariableException;
  *
  * @api
  */
-class CaseViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class CaseViewHelper extends \TYPO3\Base\ViewHelpers\Format\CaseViewHelper {
 
-	/**
-	 * Directs the input string being converted to "lowercase"
-	 */
-	const CASE_LOWER = 'lower';
-
-	/**
-	 * Directs the input string being converted to "UPPERCASE"
-	 */
-	const CASE_UPPER = 'upper';
-
-	/**
-	 * Directs the input string being converted to "Capital case"
-	 */
-	const CASE_CAPITAL = 'capital';
-
-	/**
-	 * Directs the input string being converted to "unCapital case"
-	 */
-	const CASE_UNCAPITAL = 'uncapital';
-
-	/**
-	 * Directs the input string being converted to "Capital Case For Each Word"
-	 */
-	const CASE_CAPITAL_WORDS = 'capitalWords';
-
-	/**
-	 * Changes the case of the input string
-	 *
-	 * @param string $value The input value. If not given, the evaluated child nodes will be used
-	 * @param string $mode The case to apply, must be one of this' CASE_* constants. Defaults to uppercase application
-	 * @return string the altered string.
-	 * @throws \TYPO3\Fluid\Core\ViewHelper\Exception\InvalidVariableException
-	 * @api
-	 */
-	public function render($value = NULL, $mode = self::CASE_UPPER) {
-		if ($value === NULL) {
-			$value = $this->renderChildren();
-		}
-
-		$originalEncoding = mb_internal_encoding();
-		mb_internal_encoding('UTF-8');
-
-		switch ($mode) {
-			case self::CASE_LOWER:
-				$output = mb_convert_case($value, \MB_CASE_LOWER);
-				break;
-			case self::CASE_UPPER:
-				$output = mb_convert_case($value, \MB_CASE_UPPER);
-				break;
-			case self::CASE_CAPITAL:
-				$output = mb_substr(mb_convert_case($value, \MB_CASE_UPPER), 0, 1) . mb_substr($value, 1);
-				break;
-			case self::CASE_UNCAPITAL:
-				$output = mb_substr(mb_convert_case($value, \MB_CASE_LOWER), 0, 1) . mb_substr($value, 1);
-				break;
-			case self::CASE_CAPITAL_WORDS:
-				$output = mb_convert_case($value, \MB_CASE_TITLE);
-				break;
-			default:
-				mb_internal_encoding($originalEncoding);
-				throw new InvalidVariableException('The case mode "' . $mode . '" supplied to Fluid\'s format.case ViewHelper is not supported.', 1358349150);
-		}
-
-		mb_internal_encoding($originalEncoding);
-		return $output;
-	}
+	
 }
 ?>
