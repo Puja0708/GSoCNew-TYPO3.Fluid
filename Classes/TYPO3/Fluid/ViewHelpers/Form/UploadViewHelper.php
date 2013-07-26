@@ -43,12 +43,9 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * @api
  */
-class UploadViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper {
+class UploadViewHelper extends \TYPO3\Base\ViewHelpers\Form\UploadViewHelper {
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'input';
+	
 
 	/**
 	 * @var \TYPO3\Flow\Property\PropertyMapper
@@ -69,38 +66,7 @@ class UploadViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldVi
 		$this->registerUniversalTagAttributes();
 	}
 
-	/**
-	 * Renders the upload field.
-	 *
-	 * @return string
-	 * @api
-	 */
-	public function render() {
-		$name = $this->getName();
-		$this->registerFieldNameForFormTokenGeneration($name);
-
-		$output = '';
-		$resourceObject = $this->getUploadedResource();
-		if ($resourceObject !== NULL) {
-			$filenameIdAttribute = $resourcePointerIdAttribute = '';
-			if ($this->hasArgument('id')) {
-				$filenameIdAttribute = ' id="' . htmlspecialchars($this->arguments['id']) . '-filename"';
-				$resourcePointerIdAttribute = ' id="' . htmlspecialchars($this->arguments['id']) . '-resourcePointer"';
-			}
-			$filenameValue = $resourceObject->getFilename();
-			$resourcePointerValue = $resourceObject->getResourcePointer();
-			$output .= '<input type="hidden" name="'. $this->getName() . '[submittedFile][filename]" value="' . htmlspecialchars($filenameValue) . '"' . $filenameIdAttribute . ' />';
-			$output .= '<input type="hidden" name="'. $this->getName() . '[submittedFile][resourcePointer]" value="' . htmlspecialchars($resourcePointerValue) . '"' . $resourcePointerIdAttribute . ' />';
-		}
-
-		$this->tag->addAttribute('type', 'file');
-		$this->tag->addAttribute('name', $name);
-
-		$this->setErrorClassAttribute();
-
-		$output .= $this->tag->render();
-		return $output;
-	}
+	
 
 	/**
 	 * Returns a previously uploaded resource.
