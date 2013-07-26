@@ -12,25 +12,21 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  *                                                                        */
 
 /**
- * Renders an <input type="hidden" ...> tag.
+ * View Helper which creates a simple Password Text Box (<input type="password">).
  *
  * = Examples =
  *
  * <code title="Example">
- * <f:form.hidden name="myHiddenValue" value="42" />
+ * <f:form.password name="myPassword" />
  * </code>
  * <output>
- * <input type="hidden" name="myHiddenValue" value="42" />
+ * <input type="password" name="myPassword" value="default value" />
  * </output>
- *
- * You can also use the "property" attribute if you have bound an object to the form.
- * See <f:form> for more documentation.
  *
  * @api
  */
-class HiddenViewHelper extends \TYPO3\Base\ViewHelpers\Form\HiddenViewHelper {
+class PasswordViewHelper extends \TYPO3\Base\ViewHelpers\Form\PasswordViewHelper {
 
-	
-}
+	}
 
 ?>
