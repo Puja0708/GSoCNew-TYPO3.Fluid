@@ -43,28 +43,9 @@ namespace TYPO3\Fluid\ViewHelpers\Format;
  *
  * @api
  */
-class CropViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class CropViewHelper extends \TYPO3\Base\ViewHelpers\Format\CropViewHelper {
 
-	/**
-	 * Render the cropped text
-	 *
-	 * @param integer $maxCharacters Place where to truncate the string
-	 * @param string $append What to append, if truncation happened
-	 * @param string $value The input value which should be cropped. If not set, the evaluated contents of the child nodes will be used
-	 * @return string cropped text
-	 * @api
-	 */
-	public function render($maxCharacters, $append = '...', $value = NULL) {
-		if ($value === NULL) {
-			$value = $this->renderChildren();
-		}
-
-		if (strlen($value) > $maxCharacters) {
-			return substr($value, 0, $maxCharacters) . $append;
-		} else {
-			return $value;
-		}
-	}
+	
 }
 
 
