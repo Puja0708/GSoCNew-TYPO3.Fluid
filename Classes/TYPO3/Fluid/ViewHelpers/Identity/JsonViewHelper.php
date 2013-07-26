@@ -31,12 +31,9 @@ namespace TYPO3\Fluid\ViewHelpers\Identity;
  * @deprecated since 1.1.0
  * @see \TYPO3\Fluid\ViewHelpers\Format\IdentifierViewHelper
  */
-class JsonViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class JsonViewHelper extends \TYPO3\Base\ViewHelpers\Identity\JsonViewHelper {
 
-	/**
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
+	
 
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
@@ -53,28 +50,7 @@ class JsonViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 		$this->persistenceManager = $persistenceManager;
 	}
 
-	/**
-	 * Renders the output of this view helper
-	 *
-	 * @param object $object The persisted object
-	 * @return string Identity
-	 * @throws \TYPO3\Fluid\Exception
-	 * @api
-	 */
-	public function render($object = NULL) {
-		if ($object === NULL) {
-			$object = $this->renderChildren();
-		}
-		if (!is_object($object)) {
-			throw new \TYPO3\Fluid\Exception('f:identity.json expects an object, ' . \gettype($object) . ' given.', 1277830439);
-		}
-		$identifier = $this->persistenceManager->getIdentifierByObject($object);
-		if ($identifier === NULL) {
-			return '{}';
-		} else {
-			return json_encode(array('__identity' => $identifier));
-		}
-	}
+	
 }
 
 ?>
