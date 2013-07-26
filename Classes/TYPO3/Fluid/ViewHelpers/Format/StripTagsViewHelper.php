@@ -11,56 +11,10 @@ namespace TYPO3\Fluid\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-/**
- * Removes tags from the given string (applying PHPs strip_tags() function)
- *
- * @see http://www.php.net/manual/function.strip-tags.php
- *
- * = Examples =
- *
- * <code title="default notation">
- * <f:format.stripTags>Some Text with <b>Tags</b> and an &Uuml;mlaut.</f:format.stripTags>
- * </code>
- * <output>
- * Some Text with Tags and an &Uuml;mlaut. (strip_tags() applied. Note: encoded entities are not decoded)
- * </output>
- *
- * <code title="inline notation">
- * {text -> f:format.stripTags()}
- * </code>
- * <output>
- * Text without tags (strip_tags() applied)
- * </output>
- *
- * @api
- */
-class StripTagsViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * Disable the escaping interceptor because otherwise the child nodes would be escaped before this view helper
-	 * can decode the text's entities.
-	 *
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
+class StripTagsViewHelper extends \TYPO3\Base\ViewHelpers\Format\StripTagsViewHelper {
 
-	/**
-	 * Escapes special characters with their escaped counterparts as needed using PHPs strip_tags() function.
-	 *
-	 * @param string $value string to format
-	 * @return mixed
-	 * @see http://www.php.net/manual/function.strip-tags.php
-	 * @api
-	 */
-	public function render($value = NULL) {
-		if ($value === NULL) {
-			$value = $this->renderChildren();
-		}
-		if (!is_string($value)) {
-			return $value;
-		}
-		return strip_tags($value);
-	}
+	
 }
 
 ?>
