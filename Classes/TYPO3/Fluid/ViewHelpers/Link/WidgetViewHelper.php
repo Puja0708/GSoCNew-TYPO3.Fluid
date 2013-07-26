@@ -17,7 +17,7 @@ use TYPO3\Flow\Annotations as Flow;
  * @deprecated since 1.1.0 Use f:widget.link ViewHelper instead
  * @see \TYPO3\Fluid\ViewHelpers\Widget\LinkViewHelper
  */
-class WidgetViewHelper extends \TYPO3\Fluid\ViewHelpers\Widget\LinkViewHelper {
+class WidgetViewHelper extends \TYPO3\Base\ViewHelpers\Widget\LinkViewHelper {
 }
 
 ?>
