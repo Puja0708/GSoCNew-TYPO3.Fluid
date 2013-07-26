@@ -12,7 +12,7 @@ namespace TYPO3\Fluid\ViewHelpers\Format;
  *                                                                        */
 
 
-class PrintfViewHelper extends \YPO3\Base\ViewHelpers\Format\PrintfViewHelper {
+class PrintfViewHelper extends \TYPO3\Base\ViewHelpers\Format\PrintfViewHelper {
 
 	
 }
