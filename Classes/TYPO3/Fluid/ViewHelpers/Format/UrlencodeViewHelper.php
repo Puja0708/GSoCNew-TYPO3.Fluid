@@ -33,35 +33,9 @@ namespace TYPO3\Fluid\ViewHelpers\Format;
  *
  * @api
  */
-class UrlencodeViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class UrlencodeViewHelper extends \TYPO3\Base\ViewHelpers\Format\UrlencodeViewHelper  {
 
-	/**
-	 * Disable the escaping interceptor because otherwise the child nodes would be escaped before this view helper
-	 * can decode the text's entities.
-	 *
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
-
-	/**
-	 * Escapes special characters with their escaped counterparts as needed using PHPs urlencode() function.
-	 *
-	 * @param string $value string to format
-	 * @return mixed
-	 * @see http://www.php.net/manual/function.urlencode.php
-	 * @api
-	 * @throws \TYPO3\Fluid\Core\ViewHelper\Exception
-	 */
-	public function render($value = NULL) {
-		if ($value === NULL) {
-			$value = $this->renderChildren();
-		}
-		if (is_string($value) || (is_object($value) && method_exists($value, '__toString')) ) {
-			return rawurlencode($value);
-		}
-
-		throw new \TYPO3\Fluid\Core\ViewHelper\Exception('This ViewHelper works with values that are of type string or objects that implement a __toString method. You provided "' . is_object($value) ? get_class($value) : gettype($value) . '"', 1359389241);
-	}
+	
 }
 
 ?>
