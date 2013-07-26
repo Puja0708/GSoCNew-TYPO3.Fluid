@@ -36,37 +36,9 @@ use TYPO3\Flow\Annotations as Flow;
  * @Flow\Scope("singleton")
  * @api
  */
-class HtmlentitiesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class HtmlentitiesViewHelper extends \TYPO3\Base\ViewHelpers\Format\HtmlentitiesViewHelper {
 
-	/**
-	 * Disable the escaping interceptor because otherwise the child nodes would be escaped before this view helper
-	 * can decode the text's entities.
-	 *
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
-
-	/**
-	 * Escapes special characters with their escaped counterparts as needed using PHPs htmlentities() function.
-	 *
-	 * @param string $value string to format
-	 * @param boolean $keepQuotes if TRUE, single and double quotes won't be replaced (sets ENT_NOQUOTES flag)
-	 * @param string $encoding
-	 * @param boolean $doubleEncode If FALSE existing html entities won't be encoded, the default is to convert everything.
-	 * @return string the altered string
-	 * @see http://www.php.net/manual/function.htmlentities.php
-	 * @api
-	 */
-	public function render($value = NULL, $keepQuotes = FALSE, $encoding = 'UTF-8', $doubleEncode = TRUE) {
-		if ($value === NULL) {
-			$value = $this->renderChildren();
-		}
-		if (!is_string($value)) {
-			return $value;
-		}
-		$flags = $keepQuotes ? ENT_NOQUOTES : ENT_COMPAT;
-		return htmlentities($value, $flags, $encoding, $doubleEncode);
-	}
+	
 }
 
 ?>
