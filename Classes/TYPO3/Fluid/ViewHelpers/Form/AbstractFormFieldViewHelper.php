@@ -20,7 +20,7 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  *
  * @api
  */
-abstract class AbstractFormFieldViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormViewHelper {
+abstract class AbstractFormFieldViewHelper extends \TYPO3\Base\ViewHelpers\Form\AbstractFormViewHelper {
 
 	
 
