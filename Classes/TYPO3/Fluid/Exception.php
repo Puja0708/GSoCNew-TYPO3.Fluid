@@ -16,7 +16,7 @@ namespace TYPO3\Fluid;
  *
  * @api
  */
-class Exception extends \TYPO3\Flow\Exception {
+class Exception extends \TYPO3\Base\Exception {
 }
 
 ?>
