@@ -11,74 +11,80 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\Flow\Annotations as Flow;
+
 /**
- * Validation results view helper
+ * A view helper which generates an <input type="file"> HTML element.
+ * Make sure to set enctype="multipart/form-data" on the form!
+ *
+ * If a file has been uploaded successfully and the form is re-displayed due to validation errors,
+ * this ViewHelper will render hidden fields that contain the previously generated resource so you
+ * won't have to upload the file again.
+ *
+ * You can use a separate ViewHelper to display previously uploaded resources in order to remove/replace them.
  *
  * = Examples =
  *
- * <code title="Output error messages as a list">
- * <f:form.validationResults>
- *   <f:if condition="{validationResults.flattenedErrors}">
- *     <ul class="errors">
- *       <f:for each="{validationResults.flattenedErrors}" as="errors" key="propertyPath">
- *         <li>{propertyPath}
- *           <ul>
- *           <f:for each="{errors}" as="error">
- *             <li>{error.code}: {error}</li>
- *           </f:for>
- *           </ul>
- *         </li>
- *       </f:for>
- *     </ul>
- *   </f:if>
- * </f:form.validationResults>
+ * <code title="Example">
+ * <f:form.upload name="file" />
  * </code>
  * <output>
- * <ul class="errors">
- *   <li>1234567890: Validation errors for argument "newBlog"</li>
- * </ul>
+ * <input type="file" name="file" />
  * </output>
  *
- * <code title="Output error messages for a single property">
- * <f:form.validationResults for="someProperty">
- *   <f:if condition="{validationResults.flattenedErrors}">
- *     <ul class="errors">
- *       <f:for each="{validationResults.errors}" as="error">
- *         <li>{error.code}: {error}</li>
- *       </f:for>
- *     </ul>
- *   </f:if>
- * </f:form.validationResults>
+ * <code title="Multiple Uploads">
+ * <f:form.upload property="attachments.0.originalResource" />
+ * <f:form.upload property="attachments.1.originalResource" />
  * </code>
  * <output>
- * <ul class="errors">
- *   <li>1234567890: Some error message</li>
- * </ul>
+ * <input type="file" name="formObject[attachments][0][originalResource]">
+ * <input type="file" name="formObject[attachments][0][originalResource]">
  * </output>
  *
  * @api
  */
-class ValidationResultsViewHelper extends \TYPO3\Base\Core\ViewHelper\ValidationResultsViewHelper {
+class UploadViewHelper extends \TYPO3\Base\ViewHelpers\Form\UploadViewHelper {
+
+	
 
 	/**
-	 * Iterates through selected errors of the request.
+	 * @var \TYPO3\Flow\Property\PropertyMapper
+	 * @Flow\Inject
+	 */
+	protected $propertyMapper;
+
+	/**
+	 * Initialize the arguments.
 	 *
-	 * @param string $for The name of the error name (e.g. argument name or property name). This can also be a property path (like blog.title), and will then only display the validation errors of that property.
-	 * @param string $as The name of the variable to store the current error
-	 * @return string Rendered string
+	 * @return void
 	 * @api
 	 */
-	public function render($for = '', $as = 'validationResults') {
-		$validationResults = $this->controllerContext->getRequest()->getInternalArgument('__submittedArgumentValidationResults');
-		if ($validationResults !== NULL && $for !== '') {
-			$validationResults = $validationResults->forProperty($for);
-		}
-		$this->templateVariableContainer->add($as, $validationResults);
-		$output = $this->renderChildren();
-		$this->templateVariableContainer->remove($as);
+	public function initializeArguments() {
+		parent::initializeArguments();
+		$this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
+		$this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this view helper', FALSE, 'f3-form-error');
+		$this->registerUniversalTagAttributes();
+	}
 
-		return $output;
+	
+
+	/**
+	 * Returns a previously uploaded resource.
+	 * If errors occurred during property mapping for this property, NULL is returned
+	 *
+	 * @return \TYPO3\Flow\Resource\Resource
+	 */
+	protected function getUploadedResource() {
+		if ($this->getMappingResultsForProperty()->hasErrors()) {
+			return NULL;
+		}
+		$resourceObject = $this->getValue(FALSE);
+		if ($resourceObject instanceof \TYPO3\Flow\Resource\Resource) {
+			return $resourceObject;
+		}
+		return $this->propertyMapper->convert($resourceObject, 'TYPO3\Flow\Resource\Resource');
 	}
 }
+
 
 ?>
