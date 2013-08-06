@@ -16,7 +16,18 @@ namespace TYPO3\Fluid\View;
  *
  * @api
  */
-abstract class TemplateView extends \TYPO3\Base\View\TemplateView implements \TYPO3\Flow\Mvc\View\ViewInterface{
+class TemplateView extends \TYPO3\Base\View\TemplateView implements \TYPO3\Base\View\ViewInterface{
+
+	/**
+	 * Sets the current controller context
+	 *
+	 * @param \TYPO3\Flow\Mvc\Controller\ControllerContext $controllerContext Context of the controller associated with this view
+	 * @return void
+	 * @api
+	 */
+	public function setControllerContext(\TYPO3\Flow\Mvc\Controller\ControllerContext $controllerContext){
+		;
+	}
 
 
 
