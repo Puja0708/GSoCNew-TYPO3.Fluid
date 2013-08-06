@@ -16,7 +16,7 @@ namespace TYPO3\Fluid\View;
  *
  * Contains the fundamental methods which any Fluid based template view needs.
  */
-abstract class AbstractTemplateView extends \TYPO3\Base\View\AbstractTemplateView implements \TYPO3\Flow\Mvc\View\ViewInterface {
+abstract class AbstractTemplateView extends \TYPO3\Base\View\AbstractTemplateView {
 
 
 
