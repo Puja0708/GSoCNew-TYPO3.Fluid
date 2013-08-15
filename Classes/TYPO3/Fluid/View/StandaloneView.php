@@ -22,7 +22,7 @@ use TYPO3\Flow\Http\Request;
  *
  * @api
  */
-abstract class StandaloneView extends \TYPO3\Base\View\StandaloneView  implements \TYPO3\Flow\Mvc\View\ViewInterface {
+abstract class StandaloneView extends \TYPO3\Base\View\StandaloneView  implements \TYPO3\Base\View\ViewInterface {
 
 	
 	/**
