@@ -28,17 +28,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  *
  * @api
  */
-class BaseViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class BaseViewHelper extends \TYPO3\Base\ViewHelpers\BaseViewHelper {
 
-	/**
-	 * Render the "Base" tag by outputting $httpRequest->getBaseUri()
-	 *
-	 * @return string "base"-Tag.
-	 * @api
-	 */
-	public function render() {
-		return '<base href="' . $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri() . '" />';
-	}
+	
 }
 
 ?>
