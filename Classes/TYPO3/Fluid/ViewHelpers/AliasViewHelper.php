@@ -42,25 +42,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  *
  * @api
  */
-class AliasViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class AliasViewHelper extends \TYPO3\Base\ViewHelpers\AliasViewHelper {
 
-	/**
-	 * Renders alias
-	 *
-	 * @param array $map array that specifies which variables should be mapped to which alias
-	 * @return string Rendered string
-	 * @api
-	 */
-	public function render(array $map) {
-		foreach ($map as $aliasName => $value) {
-			$this->templateVariableContainer->add($aliasName, $value);
-		}
-		$output = $this->renderChildren();
-		foreach ($map as $aliasName => $value) {
-			$this->templateVariableContainer->remove($aliasName);
-		}
-		return $output;
-	}
+	
 }
 
 ?>
