@@ -31,15 +31,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  * @see TYPO3\Fluid\ViewHelpers\IfViewHelper
  * @api
  */
-class ElseViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ElseViewHelper extends \TYPO3\Base\ViewHelpers\ElseViewHelper {
 
-	/**
-	 * @return string the rendered string
-	 * @api
-	 */
-	public function render() {
-		return $this->renderChildren();
-	}
+	
 }
 
 ?>
