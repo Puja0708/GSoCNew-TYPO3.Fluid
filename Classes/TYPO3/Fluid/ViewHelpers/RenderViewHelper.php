@@ -69,41 +69,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  *
  * @api
  */
-class RenderViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RenderViewHelper extends \TYPO3\Base\ViewHelpers\RenderViewHelper {
 
-	/**
-	 * Renders the content.
-	 *
-	 * @param string $section Name of section to render. If used in a layout, renders a section of the main content file. If used inside a standard template, renders a section of the same file.
-	 * @param string $partial Reference to a partial.
-	 * @param array $arguments Arguments to pass to the partial.
-	 * @param boolean $optional Set to TRUE, to ignore unknown sections, so the definition of a section inside a template can be optional for a layout
-	 * @return string
-	 * @api
-	 */
-	public function render($section = NULL, $partial = NULL, $arguments = array(), $optional = FALSE) {
-		$arguments = $this->loadSettingsIntoArguments($arguments);
-
-		if ($partial !== NULL) {
-			return $this->viewHelperVariableContainer->getView()->renderPartial($partial, $section, $arguments);
-		} elseif ($section !== NULL) {
-			return $this->viewHelperVariableContainer->getView()->renderSection($section, $arguments, $optional);
-		}
-		return '';
-	}
-
-	/**
-	 * If $arguments['settings'] is not set, it is loaded from the TemplateVariableContainer (if it is available there).
-	 *
-	 * @param array $arguments
-	 * @return array
-	 */
-	protected function loadSettingsIntoArguments($arguments) {
-		if (!isset($arguments['settings']) && $this->templateVariableContainer->exists('settings')) {
-			$arguments['settings'] = $this->templateVariableContainer->get('settings');
-		}
-		return $arguments;
-	}
+	
 }
 
 ?>
