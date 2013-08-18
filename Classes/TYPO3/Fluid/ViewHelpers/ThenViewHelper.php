@@ -17,17 +17,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  * @see \TYPO3\Fluid\ViewHelpers\IfViewHelper
  * @api
  */
-class ThenViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ThenViewHelper extends \TYPO3\Base\ViewHelpers\ThenViewHelper {
 
-	/**
-	 * Just render everything.
-	 *
-	 * @return string the rendered string
-	 * @api
-	 */
-	public function render() {
-		return $this->renderChildren();
-	}
+	
 }
 
 ?>
