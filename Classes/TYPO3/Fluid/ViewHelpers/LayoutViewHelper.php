@@ -25,44 +25,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  *
  * @api
  */
-class LayoutViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper implements \TYPO3\Fluid\Core\ViewHelper\Facets\PostParseInterface {
+class LayoutViewHelper extends \TYPO3\Base\ViewHelpers\LayoutViewHelper {
 
-	/**
-	 * Initialize arguments
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function initializeArguments() {
-		$this->registerArgument('name', 'string', 'Name of layout to use. If none given, "Default" is used.');
-	}
-
-	/**
-	 * On the post parse event, add the "layoutName" variable to the variable container so it can be used by the TemplateView.
-	 *
-	 * @param \TYPO3\Fluid\Core\Parser\SyntaxTree\ViewHelperNode $syntaxTreeNode
-	 * @param array $viewHelperArguments
-	 * @param \TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer $variableContainer
-	 * @return void
-	 */
-	static public function postParseEvent(\TYPO3\Fluid\Core\Parser\SyntaxTree\ViewHelperNode $syntaxTreeNode, array $viewHelperArguments, \TYPO3\Fluid\Core\ViewHelper\TemplateVariableContainer $variableContainer) {
-		if (isset($viewHelperArguments['name'])) {
-			$layoutNameNode = $viewHelperArguments['name'];
-		} else {
-			$layoutNameNode = new \TYPO3\Fluid\Core\Parser\SyntaxTree\TextNode('Default');
-		}
-
-		$variableContainer->add('layoutName', $layoutNameNode);
-	}
-
-	/**
-	 * This tag will not be rendered at all.
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function render() {
-	}
+	
 }
 
 ?>
