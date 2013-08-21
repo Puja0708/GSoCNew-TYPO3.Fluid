@@ -58,22 +58,19 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * @api
  */
-class FlashMessagesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
-
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'ul';
+class FlashMessagesViewHelper extends \TYPO3\Base\ViewHelpers\FlashMessagesViewHelper {
 
 	/**
 	 * Initialize arguments
-	 *
+	 *Flow
 	 * @return void
 	 * @api
 	 */
 	public function initializeArguments() {
 		$this->registerUniversalTagAttributes();
 	}
+
+
 
 	/**
 	 * Renders flash messages that have been added to the FlashMessageContainer in previous request(s).
@@ -93,48 +90,6 @@ class FlashMessagesViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBa
 		} else {
 			$content = $this->renderFromTemplate($flashMessages, $as);
 		}
-		return $content;
-	}
-
-	/**
-	 * Render the flash messages as unsorted list. This is triggered if no "as" argument is given
-	 * to the ViewHelper.
-	 *
-	 * @param array $flashMessages
-	 * @return string
-	 */
-	protected function renderAsList(array $flashMessages) {
-		$flashMessagesClass = $this->arguments['class'] !== NULL ? $this->arguments['class'] : 'flashmessages';
-		$tagContent = '';
-		foreach ($flashMessages as $singleFlashMessage) {
-			$severityClass = sprintf('%s-%s', $flashMessagesClass, strtolower($singleFlashMessage->getSeverity()));
-			$messageContent = htmlspecialchars($singleFlashMessage->render());
-			if ($singleFlashMessage->getTitle() !== '') {
-				$messageContent = sprintf('<h3>%s</h3>', htmlspecialchars($singleFlashMessage->getTitle())) . $messageContent;
-			}
-			$tagContent .= sprintf('<li class="%s">%s</li>', htmlspecialchars($severityClass), $messageContent);
-		}
-		$this->tag->setContent($tagContent);
-		$content = $this->tag->render();
-
-		return $content;
-	}
-
-	/**
-	 * Defer the rendering of Flash Messages to the template. In this case,
-	 * the flash messages are stored in the template inside the variable specified
-	 * in "as".
-	 *
-	 * @param array $flashMessages
-	 * @param string $as
-	 * @return string
-	 */
-	protected function renderFromTemplate(array $flashMessages, $as) {
-		$templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
-		$templateVariableContainer->add($as, $flashMessages);
-		$content = $this->renderChildren();
-		$templateVariableContainer->remove($as);
-
 		return $content;
 	}
 }
