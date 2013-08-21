@@ -42,32 +42,9 @@ namespace TYPO3\Fluid\ViewHelpers;
  *
  * @api
  */
-class DebugViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class DebugViewHelper extends \TYPO3\Base\ViewHelpers\DebugViewHelper {
 
-	/**
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
-
-	/**
-	 * Wrapper for \TYPO3\Flow\var_dump()
-	 *
-	 * @param string $title
-	 * @param boolean $typeOnly Whether only the type should be returned instead of the whole chain.
-	 * @return string debug string
-	 */
-	public function render($title = NULL, $typeOnly = FALSE) {
-		$expressionToExamine = $this->renderChildren();
-		if ($typeOnly === TRUE && $expressionToExamine !== NULL) {
-			$expressionToExamine = (is_object($expressionToExamine) ? get_class($expressionToExamine) : gettype($expressionToExamine));
-		}
-
-		ob_start();
-		\TYPO3\Flow\var_dump($expressionToExamine, $title);
-		$output = ob_get_contents();
-		ob_end_clean();
-		return $output;
-	}
+	
 }
 
 
