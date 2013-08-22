@@ -12,9 +12,6 @@ namespace TYPO3\Fluid\ViewHelpers\Security;
  *                                                                        */
 
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
-
 /**
  * This view helper implements an ifHasRole/else condition.
  *
@@ -57,37 +54,9 @@ use TYPO3\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
  *
  * @api
  */
-class IfHasRoleViewHelper extends AbstractConditionViewHelper {
+class IfHasRoleViewHelper extends \TYPO3\Base\ViewHelpers\Security\IfHasRoleViewHelper {
 
-	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\Context
-	 */
-	protected $securityContext;
-
-	/**
-	 * renders <f:then> child if the role could be found in the security context,
-	 * otherwise renders <f:else> child.
-	 *
-	 * @param string $role The role
-	 * @param string $packageKey PackageKey of the package defining the role
-	 * @return string the rendered string
-	 * @api
-	 */
-	public function render($role, $packageKey = NULL) {
-		if ($role !== 'Everybody' && $role !== 'Anonymous' && strpos($role, '.') === FALSE && strpos($role, ':') === FALSE) {
-			if ($packageKey === NULL) {
-				$role = $this->controllerContext->getRequest()->getControllerPackageKey() . ':' . $role;
-			} else {
-				$role = $packageKey . ':' . $role;
-			}
-		}
-
-		if ($this->securityContext->hasRole($role)) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
-	}
+	
+	
 }
 ?>
