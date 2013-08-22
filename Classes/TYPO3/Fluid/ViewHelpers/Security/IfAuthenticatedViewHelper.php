@@ -43,11 +43,8 @@ namespace TYPO3\Fluid\ViewHelpers\Security;
  *
  * @api
  */
-class IfAuthenticatedViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
-	/**
-	 * @var \TYPO3\Flow\Security\Context
-	 */
-	protected $securityContext;
+class IfAuthenticatedViewHelper extends \TYPO3\Base\ViewHelpers\Security\IfAuthenticatedViewHelper {
+	
 
 	/**
 	 * Injects the Security Context
@@ -59,20 +56,6 @@ class IfAuthenticatedViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractCon
 		$this->securityContext = $securityContext;
 	}
 
-	/**
-	 * Renders <f:then> child if any account is currently authenticated, otherwise renders <f:else> child.
-	 *
-	 * @return string the rendered string
-	 * @api
-	 */
-	public function render() {
-		$activeTokens = $this->securityContext->getAuthenticationTokens();
-		foreach ($activeTokens as $token) {
-			if ($token->isAuthenticated()) {
-				return $this->renderThenChild();
-			}
-		}
-		return $this->renderElseChild();
-	}
+	
 }
 ?>
