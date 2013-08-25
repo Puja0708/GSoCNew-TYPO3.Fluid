@@ -18,64 +18,8 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * INTERNAL!!
  */
-abstract class AbstractCompiledTemplate implements \TYPO3\Fluid\Core\Parser\ParsedTemplateInterface {
+abstract class AbstractCompiledTemplate extends  \TYPO3\Base\Core\Compiler\AbstractCompiledTemplate{
 
-	/**
-	 * @var array
-	 */
-	protected $viewHelpersByPositionAndContext = array();
-
-	// These tokens are replaced by the Backporter for implementing different behavior in TYPO3 v4
-	// TOKEN-1
-
-	/**
-	 * Public such that it is callable from within closures
-	 *
-	 * @param integer $uniqueCounter
-	 * @param \TYPO3\Fluid\Core\Rendering\RenderingContextInterface $renderingContext
-	 * @param string $viewHelperName
-	 * @return \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper
-	 * @Flow\Internal
-	 */
-	public function getViewHelper($uniqueCounter, \TYPO3\Fluid\Core\Rendering\RenderingContextInterface $renderingContext, $viewHelperName) {
-		if (\TYPO3\Flow\Core\Bootstrap::$staticObjectManager->getScope($viewHelperName) === \TYPO3\Flow\Object\Configuration\Configuration::SCOPE_SINGLETON) {
-			// if ViewHelper is Singleton, do NOT instanciate with NEW, but re-use it.
-			$viewHelper = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get($viewHelperName);
-			$viewHelper->resetState();
-			return $viewHelper;
-		}
-		if (isset($this->viewHelpersByPositionAndContext[$uniqueCounter])) {
-			if ($this->viewHelpersByPositionAndContext[$uniqueCounter]->contains($renderingContext)) {
-				$viewHelper = $this->viewHelpersByPositionAndContext[$uniqueCounter][$renderingContext];
-				$viewHelper->resetState();
-				return $viewHelper;
-			} else {
-				$viewHelperInstance = new $viewHelperName;
-				$this->viewHelpersByPositionAndContext[$uniqueCounter]->attach($renderingContext, $viewHelperInstance);
-				return $viewHelperInstance;
-			}
-		} else {
-			$this->viewHelpersByPositionAndContext[$uniqueCounter] = new \SplObjectStorage();
-			$viewHelperInstance = new $viewHelperName;
-			$this->viewHelpersByPositionAndContext[$uniqueCounter]->attach($renderingContext, $viewHelperInstance);
-			return $viewHelperInstance;
-		}
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function isCompilable() {
-		return FALSE;
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function isCompiled() {
-		return TRUE;
-	}
-
-	// TOKEN-2
+	
 }
 ?>
