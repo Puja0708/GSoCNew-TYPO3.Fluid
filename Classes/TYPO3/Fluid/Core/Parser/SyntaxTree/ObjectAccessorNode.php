@@ -17,27 +17,9 @@ use TYPO3\Flow\Annotations as Flow;
  * A node which handles object access. This means it handles structures like {object.accessor.bla}
  *
  */
-class ObjectAccessorNode extends \TYPO3\Fluid\Core\Parser\SyntaxTree\AbstractNode {
+class ObjectAccessorNode extends \TYPO3\Base\Core\Parser\SyntaxTree\ObjectAccessorNode {
 
-	/**
-	 * Object path which will be called. Is a list like "post.name.email"
-	 * @var string
-	 */
-	protected $objectPath;
-
-	/**
-	 * Constructor. Takes an object path as input.
-	 *
-	 * The first part of the object path has to be a variable in the
-	 * TemplateVariableContainer.
-	 *
-	 * @param string $objectPath An Object Path, like object1.object2.object3
-	 */
-	public function __construct($objectPath) {
-		$this->objectPath = $objectPath;
-	}
-
-
+	
 	/**
 	 * Internally used for building up cached templates; do not use directly!
 	 *
@@ -48,24 +30,7 @@ class ObjectAccessorNode extends \TYPO3\Fluid\Core\Parser\SyntaxTree\AbstractNod
 		return $this->objectPath;
 	}
 
-	/**
-	 * Evaluate this node and return the correct object.
-	 *
-	 * Handles each part (denoted by .) in $this->objectPath in the following order:
-	 * - call appropriate getter
-	 * - call public property, if exists
-	 * - fail
-	 *
-	 * The first part of the object path has to be a variable in the
-	 * TemplateVariableContainer.
-	 *
-	 * @param \TYPO3\Fluid\Core\Rendering\RenderingContextInterface $renderingContext
-	 * @return object The evaluated object, can be any object type.
-	 */
-	public function evaluate(\TYPO3\Fluid\Core\Rendering\RenderingContextInterface $renderingContext) {
-		return self::getPropertyPath($renderingContext->getTemplateVariableContainer(), $this->objectPath, $renderingContext);
-	}
-
+	
 	/**
 	 * Gets a property path from a given object or array.
 	 *
