@@ -14,7 +14,7 @@ namespace TYPO3\Fluid\Core\ViewHelper;
 /**
  * Argument definition of each view helper argument
  */
-class ArgumentDefinition {
+class ArgumentDefinition extends \TYPO3\Base\Core\ViewHelper\ArgumentDefinition{
 
 	
 }
