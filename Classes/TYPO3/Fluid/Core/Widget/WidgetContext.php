@@ -25,45 +25,9 @@ use TYPO3\Flow\Annotations as Flow;
  * It is a purely internal class which should not be used outside of Fluid.
  *
  */
-class WidgetContext {
+class WidgetContext extends \TYPO3\Base\Core\Widget\WidgetContext{
 
-	/**
-	 * Uniquely idenfies a Widget Instance on a certain page.
-	 *
-	 * @var string
-	 */
-	protected $widgetIdentifier;
-
-	/**
-	 * Per-User unique identifier of the widget, if it is an AJAX widget.
-	 *
-	 * @var integer
-	 */
-	protected $ajaxWidgetIdentifier;
-
-	/**
-	 * User-supplied widget configuration, available inside the widget
-	 * controller as $this->widgetConfiguration, if being inside an AJAX
-	 * request
-	 *
-	 * @var array
-	 */
-	protected $ajaxWidgetConfiguration;
-
-	/**
-	 * User-supplied widget configuration, available inside the widget
-	 * controller as $this->widgetConfiguration, if being inside a non-AJAX
-	 * request
-	 *
-	 * @var array
-	 */
-	protected $nonAjaxWidgetConfiguration;
-	/**
-	 * The fully qualified object name of the Controller which this widget uses.
-	 *
-	 * @var string
-	 */
-	protected $controllerObjectName;
+	
 
 	/**
 	 * The child nodes of the Widget ViewHelper.
@@ -83,109 +47,6 @@ class WidgetContext {
 	 */
 	protected $viewHelperChildNodeRenderingContext;
 
-	/**
-	 * @return string
-	 */
-	public function getWidgetIdentifier() {
-		return $this->widgetIdentifier;
-	}
-
-	/**
-	 * @param string $widgetIdentifier
-	 * @return void
-	 */
-	public function setWidgetIdentifier($widgetIdentifier) {
-		$this->widgetIdentifier = $widgetIdentifier;
-	}
-
-	/**
-	 * @return integer
-	 */
-	public function getAjaxWidgetIdentifier() {
-		return $this->ajaxWidgetIdentifier;
-	}
-
-	/**
-	 * @param integer $ajaxWidgetIdentifier
-	 * @return void
-	 */
-	public function setAjaxWidgetIdentifier($ajaxWidgetIdentifier) {
-		$this->ajaxWidgetIdentifier = $ajaxWidgetIdentifier;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getWidgetConfiguration() {
-		if ($this->nonAjaxWidgetConfiguration !== NULL) {
-			return $this->nonAjaxWidgetConfiguration;
-		} else {
-			return $this->ajaxWidgetConfiguration;
-		}
-	}
-
-	/**
-	 * @param array $ajaxWidgetConfiguration
-	 * @return void
-	 */
-	public function setAjaxWidgetConfiguration($ajaxWidgetConfiguration) {
-		$this->ajaxWidgetConfiguration = $ajaxWidgetConfiguration;
-	}
-
-	/**
-	 * @param array $nonAjaxWidgetConfiguration
-	 * @return void
-	 */
-	public function setNonAjaxWidgetConfiguration($nonAjaxWidgetConfiguration) {
-		$this->nonAjaxWidgetConfiguration = $nonAjaxWidgetConfiguration;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getControllerObjectName() {
-		return $this->controllerObjectName;
-	}
-
-	/**
-	 * @param string $controllerObjectName
-	 * @return void
-	 */
-	public function setControllerObjectName($controllerObjectName) {
-		$this->controllerObjectName = $controllerObjectName;
-	}
-
-	/**
-	 * @param \TYPO3\Fluid\Core\Parser\SyntaxTree\RootNode $viewHelperChildNodes
-	 * @param \TYPO3\Fluid\Core\Rendering\RenderingContextInterface $viewHelperChildNodeRenderingContext
-	 * @return void
-	 */
-	public function setViewHelperChildNodes(\TYPO3\Fluid\Core\Parser\SyntaxTree\RootNode $viewHelperChildNodes, \TYPO3\Fluid\Core\Rendering\RenderingContextInterface $viewHelperChildNodeRenderingContext) {
-		$this->viewHelperChildNodes = $viewHelperChildNodes;
-		$this->viewHelperChildNodeRenderingContext = $viewHelperChildNodeRenderingContext;
-	}
-
-	/**
-	 * @return \TYPO3\Fluid\Core\Parser\SyntaxTree\RootNode
-	 */
-	public function getViewHelperChildNodes() {
-		return $this->viewHelperChildNodes;
-	}
-
-	/**
-	 * @return \TYPO3\Fluid\Core\Rendering\RenderingContextInterface
-	 */
-	public function getViewHelperChildNodeRenderingContext() {
-		return $this->viewHelperChildNodeRenderingContext;
-	}
-
-	/**
-	 * Serialize everything *except* the viewHelperChildNodes, viewHelperChildNodeRenderingContext and nonAjaxWidgetConfiguration
-	 *
-	 * @return array
-	 */
-	public function __sleep() {
-		return array('widgetIdentifier', 'ajaxWidgetIdentifier', 'ajaxWidgetConfiguration', 'controllerObjectName');
-	}
+	
 }
 ?>
