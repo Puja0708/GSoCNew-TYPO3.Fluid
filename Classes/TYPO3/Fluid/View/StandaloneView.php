@@ -22,7 +22,7 @@ use TYPO3\Flow\Http\Request;
  *
  * @api
  */
-abstract class StandaloneView extends \TYPO3\Base\View\StandaloneView  implements \TYPO3\Base\View\ViewInterface {
+abstract class StandaloneView extends \TYPO3\Base\View\StandaloneView implements \TYPO3\Flow\Mvc\View\ViewInterface {
 
 	
 	/**
@@ -76,5 +76,55 @@ abstract class StandaloneView extends \TYPO3\Base\View\StandaloneView  implement
 	public function render() {
 		;
 	}
+
+
+	/**
+	 * @var \TYPO3\Flow\Mvc\Controller\ControllerContext
+	 */
+	protected $controllerContext;
+
+	/**
+	 * @var \TYPO3\Flow\Object\ObjectManagerInterface
+	 */
+	protected $objectManager;
+
+	
+	/**
+	 * Injects the Object Manager
+	 *
+	 * @param \TYPO3\Flow\Object\ObjectManagerInterface $objectManager
+	 * @return void
+	 */
+	public function injectObjectManager(\TYPO3\Flow\Object\ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+	
+	/**
+	 * Sets the current controller context
+	 *
+	 * @param \TYPO3\Flow\Mvc\Controller\ControllerContext $controllerContext Controller context which is available inside the view
+	 * @return void
+	 * @api
+	 */
+	public function setControllerContext(\TYPO3\Flow\Mvc\Controller\ControllerContext $controllerContext) {
+		$this->controllerContext = $controllerContext;
+	}
+
+	
+	
+	/**
+	 * Tells if the view implementation can render the view for the given context.
+	 *
+	 * By default we assume that the view implementation can handle all kinds of
+	 * contexts. Override this method if that is not the case.
+	 *
+	 * @param \TYPO3\Flow\Mvc\Controller\ControllerContext $controllerContext Controller context which is available inside the view
+	 * @return boolean TRUE if the view has something useful to display, otherwise FALSE
+	 */
+	public function canRender(\TYPO3\Flow\Mvc\Controller\ControllerContext $controllerContext) {
+		return TRUE;
+	}
 }
+
 ?>
