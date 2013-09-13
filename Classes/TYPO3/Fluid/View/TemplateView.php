@@ -16,7 +16,7 @@ namespace TYPO3\Fluid\View;
  *
  * @api
  */
-class TemplateView extends \TYPO3\Base\View\TemplateView implements \TYPO3\Base\View\ViewInterface{
+class TemplateView extends \TYPO3\Base\View\TemplateView implements \TYPO3\Flow\Mvc\View\ViewInterface{
 
 	/**
 	 * Sets the current controller context
@@ -221,6 +221,30 @@ class TemplateView extends \TYPO3\Base\View\TemplateView implements \TYPO3\Base\
 	public function render() {
 		;
 	}
+
+
+
+	/**
+	 * @var \TYPO3\Flow\Mvc\Controller\ControllerContext
+	 */
+	protected $controllerContext;
+
+	/**
+	 * @var \TYPO3\Flow\Object\ObjectManagerInterface
+	 */
+	protected $objectManager;
+
+	
+	/**
+	 * Injects the Object Manager
+	 *
+	 * @param \TYPO3\Flow\Object\ObjectManagerInterface $objectManager
+	 * @return void
+	 */
+	public function injectObjectManager(\TYPO3\Flow\Object\ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
 }
 
 ?>
