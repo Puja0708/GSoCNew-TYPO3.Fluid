@@ -11,6 +11,8 @@ namespace TYPO3\Fluid\ViewHelpers;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
+use TYPO3\Flow\Annotations as Flow;
+
 /**
  * This view helper implements an if/else condition.
  * Check \TYPO3\Fluid\Core\Parser\SyntaxTree\ViewHelperNode::convertArgumentValue() to see how boolean arguments are evaluated
@@ -85,6 +87,39 @@ namespace TYPO3\Fluid\ViewHelpers;
  * @api
  */
 class IfViewHelper extends \TYPO3\Base\ViewHelpers\IfViewHelper  {
+
+	
+	/**
+	 * The compiled ViewHelper adds two new ViewHelper arguments: __thenClosure and __elseClosure.
+	 * These contain closures which are be executed to render the then(), respectively else() case.
+	 *
+	 * @param string $argumentsVariableName
+	 * @param string $renderChildrenClosureVariableName
+	 * @param string $initializationPhpCode
+	 * @param \TYPO3\Base\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode
+	 * @param \TYPO3\Base\Core\Compiler\TemplateCompiler $templateCompiler
+	 * @return string
+	 * @Flow\Internal
+	 */
+	public function compile($argumentsVariableName, $renderChildrenClosureVariableName, &$initializationPhpCode, \TYPO3\Base\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode, \TYPO3\Base\Core\Compiler\TemplateCompiler $templateCompiler) {
+		foreach ($syntaxTreeNode->getChildNodes() as $childNode) {
+			if ($childNode instanceof \TYPO3\Base\Core\Parser\SyntaxTree\ViewHelperNode
+				&& $childNode->getViewHelperClassName() === 'TYPO3\Base\ViewHelpers\ThenViewHelper') {
+
+				$childNodesAsClosure = $templateCompiler->wrapChildNodesInClosure($childNode);
+				$initializationPhpCode .= sprintf('%s[\'__thenClosure\'] = %s;', $argumentsVariableName, $childNodesAsClosure) . chr(10);
+			}
+			if ($childNode instanceof \TYPO3\Base\Core\Parser\SyntaxTree\ViewHelperNode
+				&& $childNode->getViewHelperClassName() === 'TYPO3\Base\ViewHelpers\ElseViewHelper') {
+
+				$childNodesAsClosure = $templateCompiler->wrapChildNodesInClosure($childNode);
+				$initializationPhpCode .= sprintf('%s[\'__elseClosure\'] = %s;', $argumentsVariableName, $childNodesAsClosure) . chr(10);
+			}
+		}
+		return \TYPO3\Base\Core\Compiler\TemplateCompiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
+	}
+
+	
 
 	
 }
