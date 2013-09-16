@@ -92,5 +92,8 @@ class FlashMessagesViewHelper extends \TYPO3\Base\ViewHelpers\FlashMessagesViewH
 		}
 		return $content;
 	}
+	
+
+
 }
 ?>
