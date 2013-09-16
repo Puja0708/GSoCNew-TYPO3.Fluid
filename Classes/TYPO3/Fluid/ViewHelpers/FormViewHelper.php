@@ -42,7 +42,7 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * @api
  */
-class FormViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormViewHelper {
+class FormViewHelper extends \TYPO3\Base\ViewHelpers\FormViewHelper{
 
 	/**
 	 * @Flow\Inject
@@ -61,6 +61,49 @@ class FormViewHelper extends \TYPO3\Fluid\ViewHelpers\Form\AbstractFormViewHelpe
 	 * @var \TYPO3\Flow\Mvc\Controller\MvcPropertyMappingConfigurationService
 	 */
 	protected $mvcPropertyMappingConfigurationService;
+
+
+	/**
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
+	/**
+	 * Injects the Flow Persistence Manager
+	 *
+	 * @param \TYPO3\Flow\Persistence\PersistenceManagerInterface $persistenceManager
+	 * @return void
+	 */
+	public function injectPersistenceManager(\TYPO3\Flow\Persistence\PersistenceManagerInterface $persistenceManager) {
+		$this->persistenceManager = $persistenceManager;
+	}
+
+	
+
+	/**
+	 * Renders a hidden form field containing the technical identity of the given object.
+	 *
+	 * @param object $object Object to create the identity field for
+	 * @param string $name Name
+	 * @return string A hidden field containing the Identity (UUID in TYPO3 Flow, uid in Extbase) of the given object or NULL if the object is unknown to the persistence framework
+	 * @see \TYPO3\Flow\Mvc\Controller\Argument::setValue()
+	 */
+	protected function renderHiddenIdentityField($object, $name) {
+		if (!is_object($object) || $this->persistenceManager->isNewObject($object)) {
+			return '';
+		}
+		$identifier = $this->persistenceManager->getIdentifierByObject($object);
+		if ($identifier === NULL) {
+			return chr(10) . '<!-- Object of type ' . get_class($object) . ' is without identity -->' . chr(10);
+		}
+		$name = $this->prefixFieldName($name) . '[__identity]';
+		$this->registerFieldNameForFormTokenGeneration($name);
+
+		return chr(10) . '<input type="hidden" name="'. $name . '" value="' . $identifier .'" />' . chr(10);
+	}
+
+
+
 
 }
 ?>
