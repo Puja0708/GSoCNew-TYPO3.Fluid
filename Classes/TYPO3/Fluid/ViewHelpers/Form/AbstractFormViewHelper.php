@@ -17,7 +17,7 @@ namespace TYPO3\Fluid\ViewHelpers\Form;
  * If you set the "property" attribute to the name of the property to resolve from the object, this class will
  * automatically set the name and value of a form element.
  */
-abstract class AbstractFormViewHelper extends \TYPO3\Base\Core\ViewHelper\AbstractTagBasedViewHelper {
+abstract class AbstractFormViewHelper extends \TYPO3\Base\ViewHelpers\Form\AbstractFormViewHelper {
 
 	/**
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
